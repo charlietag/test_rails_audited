@@ -6,6 +6,7 @@ class VersionsController < ApplicationController
   def rollback
     
 
+    #render plain: "#{@version.revision}  --- #{@version.revision.inspect}"
     respond_to do |format|
       if @version.revision.save
         format.html { redirect_to @version.revision, notice: 'Version was successfully restored.' }
