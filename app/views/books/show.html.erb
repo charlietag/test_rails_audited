@@ -1,0 +1,69 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @book.name %>
+</p>
+
+<p>
+  <strong>Author:</strong>
+  <%= @book.author %>
+</p>
+
+<p>
+  <strong>Year:</strong>
+  <%= @book.year %>
+</p>
+
+<p>
+  <strong>Versions:</strong>
+  <table>
+    <thead>
+      <!--
+      <tr>
+        <th>id</th>
+        <th>auditable_type</th>
+        <th>action</th>
+        <th>audited_changes</th>
+        <th>version</th>
+        <th>remote_address</th>
+      </tr>
+      <--!>
+      <tr>
+        <th>Name</th>
+        <th>Author</th>
+        <th>Year</th>
+        <th>CreatedAt</th>
+        <th>UpdatedAt</th>
+        <th>Roll Back To Version</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!--
+      <%# @book.audits.each do |b| %>
+      <tr>
+        <td><%# b.id %></td>
+        <td><%# b.auditable_type %></td>
+        <td><%# b.action%></td>
+        <td><%# b.audited_changes %></td>
+        <td><%# b.version %></td>
+        <td><%# b.remote_address %></td>
+      </tr>
+      <%# end %>
+      <--!>
+      <% @book.audits.each do |b| %>
+      <tr>
+        <%= tag.td b.revision.name %>
+        <%= tag.td b.revision.author %>
+        <%= tag.td b.revision.year %>
+        <%= tag.td b.revision.created_at %>
+        <%= tag.td b.created_at %>
+        <%= tag.td link_to b.version, rollback_version_path(b), method: :patch, data: { confirm: "Rollback to '#{b.created_at}' ?" }   %>
+      </tr>
+      <% end %>
+
+    </tbody>
+  </table>
+</p>
+<%= link_to 'Edit', edit_book_path(@book) %> |
+<%= link_to 'Back', books_path %>

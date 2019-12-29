@@ -1,0 +1,56 @@
+<p id="notice"><%= notice %></p>
+
+<h1><%= link_to 'Books', books_path %> | <%= link_to 'Deleted records', destroyed_books_path %></h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Author</th>
+      <th>Year</th>
+      <th>Versions</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+  <% if @books.name == "Book" %>
+    <% @books.each do |book| %>
+      <tr>
+        <%= tag.td book.name, class:"center" %>
+        <td><%= book.author %></td>
+        <td><%= book.year %></td>
+        <td><%= book.audits.count %></td>
+        <td><%= link_to 'Show', book %></td>
+        <td><%= link_to 'Edit', edit_book_path(book) %></td>
+        <%= tag.td link_to( 'Destroy', book, method: :delete, data: { confirm: 'Are you sure?' }) , class:"center" %>
+      </tr>
+    <% end %>
+  <% end %>
+
+  <% if @books.name == "Audited::Audit" %>
+    <% @books.each do |b| %>
+      <tr>
+        <%= tag.td b.auditable_type %>
+        <%= tag.td b.auditable_id %>
+        <%= tag.td b.action %>
+        <%= tag.td b.revision.name %>
+        <%= tag.td b.revision.author %>
+        <%= tag.td b.revision.year %>
+        <%= tag.td b.revision.created_at %>
+        <%= tag.td b.created_at %>
+        <%= tag.td link_to b.version, rollback_version_path(b), method: :patch, data: { confirm: "Rollback to '#{b.created_at}' ?" }   %>
+      </tr>
+    <% end %>
+  <% end %>
+  </tbody>
+</table>
+<%# tag.table do %>
+  <%# tag.tr do %>
+    <%# tag.td "test tag", class:"center" %>
+  <%# end %>
+<%# end %>
+
+<br>
+
+<%= link_to 'New Book', new_book_path %>
