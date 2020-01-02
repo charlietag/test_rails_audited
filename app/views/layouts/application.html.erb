@@ -7,9 +7,23 @@
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <script>
+      //document.addEventListener("turbolinks:load", function() {
+        document.addEventListener("turbolinks:before-render", function() {
+          document.getElementById("tbr").innerHTML = "Waiting for new data";
+        });
+
+        //document.addEventListener("turbolinks:render", function() {
+        //  document.getElementById("tbr").innerHTML = "";
+        //});
+
+        //document.getElementById("tbr").innerHTML = "Waiting for new data";
+      //});
+    </script>
   </head>
 
   <body>
+    <div id="tbr"></div>
     <%= yield %>
   </body>
 </html>
